@@ -12,10 +12,10 @@ Dynamic-IP-Access-Control is a PHP script designed to manage access to web resou
 - **Logging of Denied Access Attempts:** Record IP addresses that are denied access in a log file for auditing and security purposes.
 - **Automatic IP Address Updates:** Refresh the allowed IP addresses from DynDNS hostnames if access is initially denied, ensuring the list is always up-to-date.
 
-## Usage
+## Usage (accesscontrol.php)
 
 1. **Configure Fixed IP Addresses:** Add your fixed IP addresses to the `$fixed_ips` array.
-2. **Add DynDNS Hostnames:** List the DynDNS hostnames in the `$dyndns_addresses` array.
+2. **Add DynDNS Hostnames:** List the DynDNS hostnames in the `$dyndns_addresses` array . 
 3. **Set Local Network Range:** Define your local network IP range in the `$local_network_range` variable.
 4. **Do Not Change Below:** The script reads, writes, and updates IP addresses from `allowed_temp_ip.txt`, and logs denied access attempts to `log.txt`.
 
@@ -42,7 +42,8 @@ $local_network_range = '10.10.55.0/24';
 ## Installation
 1. **Clone the repository to your web server.
 2. **Update the $dyndns_addresses, $fixed_ips, and $local_network_range variables with your specific values.
-3. **Ensure allowed_temp_ip.txt and log.txt have appropriate write permissions for the web server.
+3. **Ensure the folder `access_logs` has appropriate write permissions for the web server.
+4. **Ensure `allowed_temp_ip.txt` and `log.txt` have appropriate write permissions for the web server.
 
 OR Copy the code in your script :-)
 
