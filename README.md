@@ -48,8 +48,14 @@ $local_network_range = '10.10.55.0/24';
 3. **Ensure the folder `access_logs` has appropriate write permissions for the web server.
 4. **Ensure `allowed_temp_ip.txt` and `log.txt` have appropriate write permissions for the web server.
 
-OR Copy the code in your script :-)
-
+or copy the accesscontrol.php in your Webserver root and make new Folder `access_logs` with write permissions
+Use:
+```php
+<?php
+include 'accesscontrol.php';
+// Your page content here
+?>
+```
 ## Contributing
 Feel free to submit issues and pull requests to improve this script. Contributions are always welcome!
 
