@@ -11,6 +11,9 @@ Dynamic-IP-Access-Control is a PHP script designed to manage access to web resou
 - **Local Network Range Support:** Define and allow access for a specific range of local network IP addresses.
 - **Logging of Denied Access Attempts:** Record IP addresses that are denied access in a log file for auditing and security purposes.
 - **Automatic IP Address Updates:** Refresh the allowed IP addresses from DynDNS hostnames if access is initially denied, ensuring the list is always up-to-date.
+- **Date-based Log Files:** Store logs in separate files based on the date, making it easier to manage and review logs.
+- **Script Name Logging:** Log the name and path of the script that was accessed when the access attempt was denied, providing more context for security reviews.
+
 
 ## Usage (accesscontrol.php)
 
