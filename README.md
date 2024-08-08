@@ -53,4 +53,10 @@ OR Copy the code in your script :-)
 ## Contributing
 Feel free to submit issues and pull requests to improve this script. Contributions are always welcome!
 
+## Keywords
+
+PHP, DynDNS, Access Control, IP Whitelist, Local Network, Security, Logging, Dynamic IP, Fixed IP, Web Security, IPV4, IP, Access, simple 
+
 this `README.md` provides a clear overview of the project, its features, usage instructions, and example configuration, along with installation and contributing guidelines.
+
+
