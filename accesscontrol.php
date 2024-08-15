@@ -81,7 +81,18 @@ $allowed_ips = $fixed_ips;
 $allowed_ips = array_merge($allowed_ips, read_ip_file($ip_file));
 
 // Get the visitor's IP address
-$user_ip = $_SERVER['REMOTE_ADDR'];
+$user_ip = null;
+
+if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    // Handle cases where there might be multiple IPs in the header (comma-separated list)
+    $ip_list = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+    $user_ip = trim(end($ip_list)); // Take the last IP in the list
+} elseif (!empty($_SERVER['HTTP_X_REAL_IP'])) {
+    $user_ip = $_SERVER['HTTP_X_REAL_IP'];
+} else {
+    $user_ip = $_SERVER['REMOTE_ADDR'];
+}
+
 
 // Check if the visitor's IP address is allowed
 $access_granted = in_array($user_ip, $allowed_ips);
