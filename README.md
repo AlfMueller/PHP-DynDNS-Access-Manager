@@ -1,68 +1,107 @@
-# Dynamic-IP-Access-Control
+# PHP-DynDNS-Access-Manager
 
-## Description
+## Overview
 
-Dynamic-IP-Access-Control is a PHP script designed to manage access to web resources based on a combination of fixed IP addresses, dynamic IP addresses resolved via DynDNS, and local network IP ranges. It ensures that only authorized IP addresses can access the protected content, while logging any denied access attempts.
+PHP-DynDNS-Access-Manager is a modern, secure, and easy-to-use PHP script for managing access to your web resources based on fixed IPs, dynamic IPs (via DynDNS), and local network ranges. It features a full admin interface, logging, statistics, and a flexible configuration system.
+
+---
 
 ## Features
 
-- **Support for Fixed IP Addresses:** Easily add static IP addresses that are always allowed access.
-- **Dynamic IP Resolution via DynDNS:** Automatically resolve and allow IP addresses associated with specified DynDNS hostnames.
-- **Local Network Range Support:** Define and allow access for a specific range of local network IP addresses.
-- **Logging of Denied Access Attempts:** Record IP addresses that are denied access in a log file for auditing and security purposes.
-- **Automatic IP Address Updates:** Refresh the allowed IP addresses from DynDNS hostnames if access is initially denied, ensuring the list is always up-to-date.
-- **Date-based Log Files:** Store logs in separate files based on the date, making it easier to manage and review logs.
-- **Script Name Logging:** Log the name and path of the script that was accessed when the access attempt was denied, providing more context for security reviews.
+- **Unified Logging:** All access attempts (granted/denied) are logged with status, IP, script, and user agent.
+- **English-Only Codebase:** All comments, UI texts, and documentation are in English for international use.
+- **Admin Interface:** Web-based admin panel for statistics, IP blacklist management, configuration overview, and cache control.
+- **IP Blacklist:** Block unwanted IPs directly from the admin interface.
+- **Access Statistics:** View access/denied requests, top denied IPs, and recent activity for the last 30 days.
+- **Flexible Configuration:** All settings (DynDNS hosts, fixed IPs, local network, rate limiting, etc.) are in `config.php`.
+- **Security:** Session timeout for admin, rate limiting, secure file permissions, and robust input validation.
+- **Easy Integration:** Just include `accesscontrol.php` at the top of your protected PHP pages.
+- **Modern UI:** Responsive, clean, and user-friendly admin dashboard.
 
-
-## Usage (accesscontrol.php)
-
-1. **Configure Fixed IP Addresses:** Add your fixed IP addresses to the `$fixed_ips` array.
-2. **Add DynDNS Hostnames:** List the DynDNS hostnames in the `$dyndns_addresses` array . 
-3. **Set Local Network Range:** Define your local network IP range in the `$local_network_range` variable.
-4. **Do Not Change Below:** The script reads, writes, and updates IP addresses from `allowed_temp_ip.txt`, and logs denied access attempts to `log.txt`.
-
-## Example Configuration
-
-```php
-// DynDNS addresses
-$dyndns_addresses = array(
-    'xxx.synology.me',
-    'beta.qnet.com',
-    'gamma.dyndns.org'
-);
-
-// Fixed IP addresses
-$fixed_ips = array(
-    '123.456.789.000',
-    '111.222.333.444'
-);
-
-// Local network range
-$local_network_range = '10.10.55.0/24';
-```
+---
 
 ## Installation
-1. **Clone the repository to your web server.
-2. **Update the $dyndns_addresses, $fixed_ips, and $local_network_range variables with your specific values.
-3. **Ensure the folder `access_logs` has appropriate write permissions for the web server.
-4. **Ensure `allowed_temp_ip.txt` and `log.txt` have appropriate write permissions for the web server.
 
-or copy the accesscontrol.php in your Webserver root and make new Folder `access_logs` with write permissions
-Use:
-```php
-<?php
-include 'accesscontrol.php';
-// Your page content here
-?>
+1. **Clone or Download**
+   ```bash
+   git clone https://github.com/youruser/PHP-DynDNS-Access-Manager.git
+   cd PHP-DynDNS-Access-Manager
+   ```
+
+2. **Set Permissions**
+   ```bash
+   mkdir -p access_logs
+   chmod 755 access_logs
+   # Ensure your webserver user can write to this directory
+   ```
+
+3. **Configure**
+   - Copy and edit `config.php` to set your DynDNS hostnames, fixed IPs, local network, and admin credentials.
+   - Example:
+     ```php
+     $dyndns_addresses = array('myhost.dyndns.org', 'anotherhost.example.com');
+     $fixed_ips = array('203.0.113.1', '198.51.100.2');
+     $local_network_range = '192.168.1.0/24';
+     $admin_username = 'admin';
+     $admin_password = 'your_secure_password';
+     ```
+
+4. **Integrate Access Control**
+   At the top of any PHP page you want to protect:
+   ```php
+   <?php
+   include 'accesscontrol.php';
+   // ... your page content ...
+   ?>
+   ```
+
+5. **Access the Admin Interface**
+   - Open `admin.php` in your browser (e.g. `https://yourdomain.com/admin.php`)
+   - Login with the credentials from `config.php`
+
+---
+
+## Usage
+
+- **Add/Remove Blacklist IPs:** Use the admin interface to block or unblock IPs.
+- **View Statistics:** See total, granted, denied requests, and top denied IPs for the last 30 days.
+- **Clear Cache:** Use the admin interface to clear the DynDNS IP cache if needed.
+- **Change Configuration:** Edit `config.php` and reload your site.
+
+---
+
+## Log Format
+
+Each access attempt is logged in `access_logs/log_YYYY-MM-DD.txt`:
 ```
+[HH:MM:SS] IP - SCRIPT - STATUS - USER_AGENT
+```
+Example:
+```
+[12:34:56] 203.0.113.1 - /index.php - granted - Mozilla/5.0 ...
+[12:35:01] 198.51.100.2 - /index.php - denied - Mozilla/5.0 ...
+```
+
+---
+
+## Security Best Practices
+
+- Change the default admin password in `config.php`!
+- Use HTTPS for your admin interface.
+- Set correct permissions for `access_logs` (not world-writable).
+- Regularly check the logs and blacklist suspicious IPs.
+- Keep your PHP version up to date.
+
+---
+
 ## Contributing
-Feel free to submit issues and pull requests to improve this script. Contributions are always welcome!
 
-## Keywords
+Pull requests and issues are welcome! Please use English for all code, comments, and issues.
 
-PHP, DynDNS, Access Control, IP Whitelist, Local Network, Security, Logging, Dynamic IP, Fixed IP, Web Security, IPV4, IP, Access, simple 
+---
 
-this `README.md` provides a clear overview of the project, its features, usage instructions, and example configuration, along with installation and contributing guidelines.
+## License
+
+MIT License. See [LICENSE](LICENSE) for details.
 
 
